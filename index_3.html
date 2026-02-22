@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TECSEN International SA - Carte Digitale</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+            background: #f0f4f0;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 850px;
+        }
+
+        .business-card {
+            background: #ffffff;
+            border-radius: 20px;
+            padding: 40px 40px 0 40px;
+            box-shadow: 
+                0 15px 50px rgba(0, 0, 0, 0.12),
+                0 0 0 1px rgba(0, 99, 65, 0.08);
+            position: relative;
+            display: grid;
+            grid-template-columns: 320px 1fr;
+            gap: 40px;
+            align-items: center;
+            min-height: 520px;
+            animation: cardEntrance 0.8s ease-out;
+            overflow: hidden;
+        }
+
+        .business-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(160deg, rgba(0, 99, 65, 0.01) 0%, rgba(0, 99, 65, 0.03) 100%);
+            border-radius: 20px;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        @keyframes cardEntrance {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .left-section {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 20px;
+            position: relative;
+            z-index: 1;
+            padding-bottom: 40px;
+        }
+
+        .logo-container {
+            padding: 10px;
+        }
+
+        .logo-container img {
+            width: 190px;
+            height: auto;
+            display: block;
+            filter: drop-shadow(0 4px 15px rgba(0, 99, 65, 0.15));
+            animation: logoFloat 5s ease-in-out infinite;
+        }
+
+        @keyframes logoFloat {
+            0%, 100% { 
+                transform: translateY(0); 
+                filter: drop-shadow(0 4px 15px rgba(0, 99, 65, 0.15));
+            }
+            50% { 
+                transform: translateY(-8px);
+                filter: drop-shadow(0 8px 25px rgba(0, 99, 65, 0.25));
+            }
+        }
+
+        .qr-code {
+            width: 165px;
+            height: 165px;
+            padding: 10px;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            border: 1px solid rgba(0, 99, 65, 0.1);
+        }
+
+        .scan-text {
+            font-size: 11px;
+            color: #006341;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-weight: 600;
+            text-align: center;
+            margin-top: 6px;
+        }
+
+        .right-section {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            gap: 10px;
+            position: relative;
+            z-index: 1;
+            padding-bottom: 40px;
+        }
+
+        .company-name {
+            font-size: 26px;
+            font-weight: 700;
+            color: #1B3A5F;
+            letter-spacing: 0.5px;
+            line-height: 1.2;
+        }
+
+        .company-sa {
+            font-size: 18px;
+            font-weight: 600;
+            color: #1B3A5F;
+            vertical-align: baseline;
+            margin-left: 4px;
+        }
+
+        .company-subtitle {
+            font-size: 12px;
+            color: #5C5F62;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            font-weight: 500;
+            font-style: italic;
+            margin-bottom: 8px;
+        }
+
+        .divider {
+            width: 100px;
+            height: 2px;
+            background: linear-gradient(90deg, #1B3A5F, #5C5F62);
+            margin: 6px 0;
+        }
+
+        .person-name {
+            font-size: 24px;
+            font-weight: 700;
+            color: #1B3A5F;
+            margin-top: 8px;
+            letter-spacing: 0.5px;
+        }
+
+        .person-title {
+            font-size: 15px;
+            color: #006341;
+            font-weight: 600;
+            font-style: italic;
+            margin-bottom: 8px;
+        }
+
+        .share-button {
+            width: 100%;
+            max-width: 260px;
+            padding: 14px;
+            background: linear-gradient(135deg, #006341, #1B3A5F);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            box-shadow: 0 4px 15px rgba(0, 99, 65, 0.3);
+            transition: all 0.3s ease;
+            margin-top: 10px;
+        }
+
+        .share-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 99, 65, 0.4);
+        }
+
+        /* Slogan - 3 flèches superposées */
+        .slogan-bar {
+            grid-column: 1 / -1;
+            position: relative;
+            height: 65px;
+            overflow: hidden;
+            border-radius: 0 0 20px 20px;
+        }
+
+        .arrow {
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            display: flex;
+            align-items: center;
+        }
+
+        /* Flèche 1 - la plus grande, vert clair */
+        .arrow-1 {
+            left: 0;
+            width: 58%;
+            background: #2E8B57;
+            clip-path: polygon(0 0, 88% 0, 100% 50%, 88% 100%, 0 100%);
+            z-index: 1;
+            padding-left: 25px;
+        }
+
+        /* Flèche 2 - moyenne, vert moyen */
+        .arrow-2 {
+            left: 42%;
+            width: 22%;
+            background: #1A6B3C;
+            clip-path: polygon(0 0, 75% 0, 100% 50%, 75% 100%, 0 100%);
+            z-index: 2;
+        }
+
+        /* Flèche 3 - petite, vert foncé */
+        .arrow-3 {
+            left: 55%;
+            width: 18%;
+            background: #004D31;
+            clip-path: polygon(0 0, 70% 0, 100% 50%, 70% 100%, 0 100%);
+            z-index: 3;
+        }
+
+        .slogan-text {
+            color: #ffffff;
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            line-height: 1.4;
+        }
+
+        .slogan-bar .green-line {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: linear-gradient(90deg, #006341, #007A4D, #006341);
+            border-radius: 0 0 20px 20px;
+            z-index: 4;
+        }
+
+        .success-message {
+            position: fixed;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%) translateY(-100px);
+            background: linear-gradient(135deg, #006341, #007A4D);
+            color: white;
+            padding: 15px 30px;
+            border-radius: 12px;
+            box-shadow: 0 10px 40px rgba(0, 99, 65, 0.4);
+            font-weight: 600;
+            opacity: 0;
+            transition: all 0.5s ease;
+            z-index: 1000;
+        }
+
+        .success-message.show {
+            transform: translateX(-50%) translateY(0);
+            opacity: 1;
+        }
+
+        @media (max-width: 768px) {
+            .business-card {
+                grid-template-columns: 1fr;
+                gap: 20px;
+                padding: 30px 20px 0 20px;
+            }
+            .left-section { padding-bottom: 0; }
+            .right-section { padding-bottom: 20px; }
+            .logo-container img { width: 150px; }
+            .qr-code { width: 155px; height: 155px; }
+            .company-name { font-size: 22px; }
+            .person-name { font-size: 20px; }
+            .share-button { max-width: 100%; }
+            .arrow-1 { width: 65%; }
+            .arrow-2 { left: 48%; width: 24%; }
+            .arrow-3 { left: 62%; width: 20%; }
+        }
+
+        @media (max-width: 480px) {
+            .business-card { padding: 22px 15px 0 15px; }
+            .logo-container img { width: 130px; }
+            .company-name { font-size: 19px; }
+            .person-name { font-size: 18px; }
+            .arrow-1 { width: 72%; padding-left: 15px; }
+            .arrow-2 { left: 55%; width: 22%; }
+            .arrow-3 { left: 68%; width: 18%; }
+            .slogan-text { font-size: 9px; letter-spacing: 1px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="business-card">
+            <div class="left-section">
+                <div class="logo-container">
+                    <img src="tecsen/logo-tecsen-transparent.png" alt="TECSEN International SA">
+                </div>
+                <div>
+                    <div class="qr-code" id="qrcode"></div>
+                    <p class="scan-text">Scanne-moi</p>
+                </div>
+            </div>
+
+            <div class="right-section">
+                <div>
+                    <h1 class="company-name">TECSEN INTERNATIONAL <span class="company-sa">SA</span></h1>
+                    <p class="company-subtitle">Technique et Sécurité du Sénégal</p>
+                    <div class="divider"></div>
+                </div>
+                <div>
+                    <h2 class="person-name">Hubert N. DACOSTA</h2>
+                    <p class="person-title">Administrateur DG</p>
+                </div>
+                <button class="share-button" onclick="shareCard()">
+                    <span>🔗</span>
+                    <span>Partager la Carte</span>
+                </button>
+            </div>
+
+            <div class="slogan-bar">
+                <div class="arrow arrow-1">
+                    <span class="slogan-text">Votre Sécurité<br>en Toute Intelligence</span>
+                </div>
+                <div class="arrow arrow-2"></div>
+                <div class="arrow arrow-3"></div>
+                <div class="green-line"></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="success-message" id="successMessage">Lien copié dans le presse-papiers!</div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+    <script>
+        const baseUrl = window.location.origin + window.location.pathname.replace(/index\.html$/, '');
+        const scanUrl = baseUrl + 'scan.html';
+        
+        new QRCode(document.getElementById("qrcode"), {
+            text: scanUrl, width: 145, height: 145,
+            colorDark: "#006341", colorLight: "#ffffff",
+            correctLevel: QRCode.CorrectLevel.H
+        });
+
+        function shareCard() {
+            const shareData = {
+                title: 'TECSEN International SA',
+                text: 'Hubert N. DACOSTA - Administrateur DG - Carte de visite digitale',
+                url: scanUrl
+            };
+            if (navigator.share) {
+                navigator.share(shareData).catch(() => copyToClipboard());
+            } else { copyToClipboard(); }
+        }
+
+        function copyToClipboard() {
+            navigator.clipboard.writeText(scanUrl).then(() => showSuccess());
+        }
+
+        function showSuccess() {
+            const msg = document.getElementById('successMessage');
+            msg.classList.add('show');
+            setTimeout(() => msg.classList.remove('show'), 3000);
+        }
+    </script>
+</body>
+</html>
